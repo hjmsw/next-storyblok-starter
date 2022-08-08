@@ -1,4 +1,5 @@
 import React from "react"
+import Link from 'next/link';
 
 type Props = {
   className?: string,
@@ -8,6 +9,7 @@ type Props = {
   icon?: any,
   iconPosition?: "left" | "right",
   full?: boolean,
+  link?: string,
   onClick?: () => void,
 }
 
@@ -19,6 +21,7 @@ function Button({
   icon = null,
   iconPosition = "left",
   full = false,
+  link,
   onClick
 }: Props) {
   let finalClass = `${className} inline-block rounded-sm font-medium border border-solid cursor-pointer text-center transition-colors duration-200`
@@ -59,17 +62,31 @@ function Button({
       iconPositionClass = "ml-2";
   }
 
+  const inner = (
+    <>
+      {icon && React.cloneElement(icon, { className: iconPositionClass })}
+      {text}
+    </>
+  )
+
   return (
-    <button
-      className={finalClass}
-      onClick={onClick}
-    >
-      <>
-        {icon && React.cloneElement(icon, { className: iconPositionClass })}
-        {text}
-      </>
-    </button>
+    link ? (
+      <Link href={link} className={finalClass}>
+        <div className={finalClass}>
+          {inner}
+        </div>
+      </Link>
+    ) : (
+      <button
+        className={finalClass}
+        onClick={onClick}
+      >
+        {inner}
+      </button>
+    )
+
   )
 }
+
 
 export default Button

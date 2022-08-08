@@ -20,7 +20,7 @@ const Layout = ({ story, navigation }: Props) => (
             <NavTripleMenu content={navigation.content} />
         </header>
 
-        <div className="">
+        <div className="flex flex-row justify-center">
             <StoryblokComponent blok={story.content} />
         </div>
 
